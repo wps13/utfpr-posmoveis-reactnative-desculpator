@@ -36,12 +36,17 @@ Exemplo de desculpa sobre viajar: Não viajo porque não tenho tempo`,
         },
     ];
 
-    const response = await ai.models.generateContent({
-        model,
-        config,
-        contents,
-    });
-    const result = response?.candidates?.[0]?.content?.parts?.[0]?.text;
-    return result;
+
+    try {
+        const response = await ai.models.generateContent({
+            model,
+            config,
+            contents,
+        });
+        const result = response?.candidates?.[0]?.content?.parts?.[0]?.text;
+        return result;
+    } catch (e) {
+        return "Preciso levar minha vó ao jiu-jitsu"
+    }
 }
 
