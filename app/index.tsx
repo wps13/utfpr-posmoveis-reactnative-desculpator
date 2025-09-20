@@ -1,3 +1,4 @@
+import { MotiView } from "moti";
 import { useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { excusesGenerator } from "./services/ai/generator";
@@ -33,10 +34,14 @@ export default function Index() {
       <TouchableOpacity style={styles.button} onPress={handlePress}>
         <Text style={styles.button_text}>{isLoading ? "Carregando..." : "Gerar desculpa infalivel!"}</Text>
       </TouchableOpacity>
-      {answer && <View style={styles.card}>
-        <Text style={styles.card_title}>Sua desculpa está pronta</Text>
-        <Text style={styles.card_text}>{answer}</Text>
-      </View>}
+      {answer &&
+        <MotiView
+          from={{ opacity: 0, translateY: 200 }}
+          animate={{ opacity: 1, translateY: 0 }}
+          style={styles.card}>
+          <Text style={styles.card_title}>Sua desculpa está pronta</Text>
+          <Text style={styles.card_text}>{answer}</Text>
+        </MotiView>}
     </View>
   );
 }
