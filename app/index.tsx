@@ -1,5 +1,5 @@
 import { MotiView } from "moti";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { excusesGenerator } from "./services/ai/generator";
 import { styles } from "./styles";
@@ -16,11 +16,16 @@ export default function Index() {
     }
 
     setIsLoading(true)
-    setExcuse('')
     const result = await excusesGenerator(excuse)
     setAnswer(result ?? '')
     setIsLoading(false)
   }
+
+  useEffect(() => {
+    if (excuse.length == 0)
+      setAnswer('')
+  }, [excuse])
+
 
   return (
     <View
