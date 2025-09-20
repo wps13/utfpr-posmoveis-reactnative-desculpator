@@ -6,10 +6,14 @@ import { styles } from "./styles";
 export default function Index() {
   const [excuse, setExcuse] = useState('')
   const [answer, setAnswer] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const handlePress = async () => {
+    setIsLoading(true)
+    setExcuse('')
     const result = await excusesGenerator(excuse)
     setAnswer(result ?? '')
+    setIsLoading(false)
   }
 
   return (
@@ -22,12 +26,12 @@ export default function Index() {
         onChangeText={setExcuse}
         style={styles.input} placeholder="Escreva a sua proposta.." />
       <TouchableOpacity style={styles.button} onPress={handlePress}>
-        <Text style={styles.button_text}>Gerar desculpa infalivel!</Text>
+        <Text style={styles.button_text}>{isLoading ? "Carregando..." : "Gerar desculpa infalivel!"}</Text>
       </TouchableOpacity>
-      <View style={styles.card}>
+      {answer && <View style={styles.card}>
         <Text style={styles.card_title}>Sua desculpa está pronta</Text>
         <Text style={styles.card_text}>{answer}</Text>
-      </View>
+      </View>}
     </View>
   );
 }
