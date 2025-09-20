@@ -9,6 +9,11 @@ export default function Index() {
   const [isLoading, setIsLoading] = useState(false)
 
   const handlePress = async () => {
+    if (excuse.length < 5) {
+      alert("Mensagem muito curta")
+      return
+    }
+
     setIsLoading(true)
     setExcuse('')
     const result = await excusesGenerator(excuse)
